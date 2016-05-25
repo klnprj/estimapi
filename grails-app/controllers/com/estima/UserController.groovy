@@ -7,7 +7,7 @@ class UserController extends RestfulController<User>{
 
     def userService
 
-    static responseFormats = ['json', 'xml']
+    static responseFormats = ['json']
 
     UserController() {
         super(User)

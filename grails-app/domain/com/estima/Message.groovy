@@ -1,12 +1,15 @@
 package com.estima
 
+import java.sql.Timestamp
+
 class Message {
 
-//    "id": 2,
-//    "positionId": 1,
-//    "authorId": 2,
-//    "text": "Позвонил.",
-//    "dateCreated": "2016-03-24T10:47:12+03:00"
+    Position position
+    User author
+    String text
+    Timestamp dateCreated
+
+    static belongsTo = [position: Position, author: User]
 
     static constraints = {
     }

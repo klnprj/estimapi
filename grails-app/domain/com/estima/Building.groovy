@@ -1,12 +1,12 @@
 package com.estima
 
 class Building {
-//    "address": "Москва, Доваторов, 2",
-//    "client": "ЗАО 'Интеко'",
-//    "id": 1,
-//    "manager": "Владимир",
-//    "name": "Садовые кварталы",
-//    "project": "Скуратов С.А."
+
+    String name
+    String address
+    String client
+    String manager
+    String project
 
     static constraints = {
     }
