@@ -23,10 +23,12 @@ class UrlMappings {
             "/buildings"(controller: 'building', action: 'create', method: 'POST')
             "/buildings"(controller: 'building', action: 'index', method: 'GET')
             "/buildings/$id"(controller: 'building', action: 'show', method: 'GET')
+            "/buildings/$id"(controller: 'building', action: 'update', method: 'PUT')
 
             "/positions"(controller: 'position', action: 'create', method: 'POST')
             "/positions"(controller: 'position', action: 'index', method: 'GET')
             "/positions/$id"(controller: 'position', action: 'show', method: 'GET')
+            "/positions/$id"(controller: 'position', action: 'delete', method: 'DELETE')
 
             "/messages"(controller: 'message', action: 'create', method: 'POST')
             "/messages"(controller: 'message', action: 'index', method: 'GET')

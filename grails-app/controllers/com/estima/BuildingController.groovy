@@ -20,8 +20,27 @@ class BuildingController extends RestfulController<Building> {
         respond buildings
     }
 
-    def create(String name, String address, String client, String manager, String project) {
-        def building = buildingService.create(name, address, client, manager, project)
+    def create() {
+        def p = request.JSON
+        def building = buildingService.create(p.name, p.address, p.client, p.manager, p.project)
+
+        if (building.hasErrors()) {
+            respond building.errors, [status: HttpStatus.METHOD_NOT_ALLOWED]
+            return
+        }
+
+        respond building
+    }
+
+    def update() {
+        def p = request.JSON
+        Long id = params.long('id')
+        def building = buildingService.update(id, p.name, p.address, p.client, p.manager, p.project)
+
+        if (!building) {
+            render status: HttpStatus.NOT_FOUND
+            return
+        }
 
         if (building.hasErrors()) {
             respond building.errors, [status: HttpStatus.METHOD_NOT_ALLOWED]
