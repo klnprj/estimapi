@@ -22,8 +22,12 @@ class MessageController extends RestfulController<Message> {
         respond result
     }
 
-    def create(MessageCreateCommand cmd) {
+    def create() {
+        def p = request.JSON
+        MessageCreateCommand cmd = new MessageCreateCommand()
         Message message
+
+        bindData cmd, [text: p.text, position: Position.load(p.positionId), author: User.load(p.authorId)]
 
         cmd.validate()
 
