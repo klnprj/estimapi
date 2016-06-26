@@ -22,7 +22,7 @@ class PositionController extends RestfulController<Position> {
         respond result
     }
 
-    def create() {
+    def save() {
         Map p = request.JSON as Map
         Long buildingId = p.buildingId as Long
         Long dealerId = p.dealerId as Long

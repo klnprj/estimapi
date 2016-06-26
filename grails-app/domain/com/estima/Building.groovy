@@ -4,6 +4,7 @@ class Building {
 
     String name
     String address
+    String location
     String client
     String manager
     String project

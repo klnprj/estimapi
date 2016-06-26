@@ -22,7 +22,7 @@ class MessageController extends RestfulController<Message> {
         respond result
     }
 
-    def create() {
+    def save() {
         def p = request.JSON
         MessageCreateCommand cmd = new MessageCreateCommand()
         Message message

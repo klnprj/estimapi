@@ -19,7 +19,7 @@ class DealerController extends RestfulController<Dealer>{
         respond dealers
     }
 
-    def create(String name) {
+    def save(String name) {
         def dealer = dealerService.create(name)
 
         if (dealer.hasErrors()) {

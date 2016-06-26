@@ -19,7 +19,7 @@ class UserController extends RestfulController<User>{
         respond users
     }
 
-    def create(String name) {
+    def save(String name) {
         def user = userService.create(name)
 
         if (user.hasErrors()) {
