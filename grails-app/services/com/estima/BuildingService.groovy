@@ -8,8 +8,14 @@ class BuildingService {
 
     def grailsWebDataBinder
 
-    List list() {
-        List result = Building.list()
+    List list(List latlng = null, Integer radius = null) {
+        List result
+
+        if (latlng != null) {
+            log.debug("Latlng: [$latlng]")
+        }
+
+        result = Building.list()
 
         return result
     }
