@@ -1,3 +1,5 @@
+import grails.util.Environment
+
 buildscript {
     ext {
         grailsVersion = project.grailsVersion
@@ -84,4 +86,21 @@ dependencies {
 
 task wrapper(type: Wrapper) {
     gradleVersion = gradleWrapperVersion
+}
+
+// enable hot reloading for non development environments
+bootRun {
+
+    final Boolean reloadEnabled =
+            Boolean.valueOf(System.properties[Environment.RELOAD_ENABLED])
+
+    if (reloadEnabled) {
+        systemProperty Environment.RELOAD_ENABLED, reloadEnabled
+    }
+}
+
+[run, bootRun].each { runTask ->
+    configure(runTask) {
+        systemProperties System.properties
+    }
 }

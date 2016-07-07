@@ -101,6 +101,16 @@ environments {
             url = 'jdbc:h2:mem:devDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE'
         }
     }
+    staging {
+        dataSource {
+            dbCreate = 'update'
+            url = "jdbc:postgresql://127.0.0.1:5432/${dbname}"
+            driverClassName = "org.postgresql.Driver"
+            dialect = org.hibernate.dialect.PostgreSQL9Dialect
+            username = dbusername
+            password = dbpassword
+        }
+    }
     test {
         dataSource {
             dbCreate = 'update'
