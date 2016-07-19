@@ -15,10 +15,10 @@ class BuildingController extends RestfulController<Building> {
     }
 
     def index() {
-        def p = request.JSON
         def buildings
+        params.latlng = params.latlng?.collect{ Double.parseDouble(it)}
 
-        buildings = buildingService.list(p.latlng, p.radius)
+        buildings = buildingService.list(params.latlng, params.int('radius'))
 
         respond buildings
     }

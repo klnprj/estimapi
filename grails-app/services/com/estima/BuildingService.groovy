@@ -2,20 +2,32 @@ package com.estima
 
 import grails.databinding.SimpleMapDataBindingSource
 import grails.transaction.Transactional
+import groovy.sql.Sql
 
 @Transactional
 class BuildingService {
 
     def grailsWebDataBinder
+    def dataSource
+    def sessionFactory
 
     List list(List latlng = null, Integer radius = null) {
         List result
+        Sql sql = new Sql(dataSource)
+        double lon = latlng?.getAt(1)
+        double lat = latlng?.getAt(0)
 
         if (latlng != null) {
             log.debug("Latlng: [$latlng]")
         }
 
-        result = Building.list()
+        def session = sessionFactory.currentSession
+        def query = session.createSQLQuery("select b.* from building b WHERE ST_DWithin(st_geogfromtext(b.location), Geography(ST_MakePoint(:lon, :lat)), :radius)")
+        query.addEntity(com.estima.Building)
+        query.setInteger("radius", radius)
+        query.setDouble("lon", lon)
+        query.setDouble("lat", lat)
+        result = query.list()
 
         return result
     }
