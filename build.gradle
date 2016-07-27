@@ -82,6 +82,8 @@ dependencies {
     runtime ('org.postgresql:postgresql:9.4-1200-jdbc41') {
         exclude group: 'org.slf4j', module: 'slf4j-api'
     }
+
+    compile 'org.grails.plugins:spring-security-oauth2-provider:3.0.0-RC1'
 }
 
 task wrapper(type: Wrapper) {

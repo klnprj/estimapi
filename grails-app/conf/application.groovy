@@ -147,3 +147,48 @@ environments {
         }
     }
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.estima.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.estima.auth.UserRole'
+grails.plugin.springsecurity.authority.className = 'com.estima.auth.Role'
+grails.plugin.springsecurity.userLookup.usernamePropertyName='email'
+grails.plugin.springsecurity.userLookup.authoritiesPropertyName = 'authorities'
+grails.plugin.springsecurity.authority.nameField = 'name'
+
+grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+        [pattern: '/',                  access: ['permitAll']],
+        [pattern: '/error',             access: ['permitAll']],
+        [pattern: '/index',             access: ['permitAll']],
+        [pattern: '/index.gsp',         access: ['permitAll']],
+        [pattern: '/shutdown',          access: ['permitAll']],
+        [pattern: '/assets/**',         access: ['permitAll']],
+        [pattern: '/**/js/**',          access: ['permitAll']],
+        [pattern: '/**/css/**',         access: ['permitAll']],
+        [pattern: '/**/images/**',      access: ['permitAll']],
+        [pattern: '/**/favicon.ico',    access: ['permitAll']],
+        [pattern: '/oauth/authorize',	access: ['permitAll']],
+        [pattern: '/oauth/token',		access: ['permitAll']],
+]
+
+grails.plugin.springsecurity.filterChain.chainMap = [
+        [pattern: '/assets/**',                 filters: 'none'],
+        [pattern: '/**/js/**',                  filters: 'none'],
+        [pattern: '/**/css/**',                 filters: 'none'],
+        [pattern: '/**/images/**',              filters: 'none'],
+        [pattern: '/**/favicon.ico',            filters: 'none'],
+        [pattern: '/oauth/token',               filters: 'JOINED_FILTERS,-oauth2ProviderFilter,-securityContextPersistenceFilter,-logoutFilter,-authenticationProcessingFilter,-rememberMeAuthenticationFilter,-exceptionTranslationFilter'],
+        [pattern: '/securedOAuth2Resources/**', filters: 'JOINED_FILTERS,-securityContextPersistenceFilter,-logoutFilter,-authenticationProcessingFilter,-rememberMeAuthenticationFilter,-oauth2BasicAuthenticationFilter,-exceptionTranslationFilter'],
+        [pattern: '/**',                        filters: 'JOINED_FILTERS,-statelessSecurityContextPersistenceFilter,-oauth2ProviderFilter,-clientCredentialsTokenEndpointFilter,-oauth2BasicAuthenticationFilter,-oauth2ExceptionTranslationFilter']
+]
+
+grails.plugin.springsecurity.providerNames = [
+        'clientCredentialsAuthenticationProvider',
+        'daoAuthenticationProvider'
+]
+
+// Added by the Spring Security OAuth2 Provider plugin:
+grails.plugin.springsecurity.oauthProvider.clientLookup.className = 'com.estima.auth.Client'
+grails.plugin.springsecurity.oauthProvider.authorizationCodeLookup.className = 'com.estima.auth.AuthorizationCode'
+grails.plugin.springsecurity.oauthProvider.accessTokenLookup.className = 'com.estima.auth.AccessToken'
+grails.plugin.springsecurity.oauthProvider.refreshTokenLookup.className = 'com.estima.auth.RefreshToken'
