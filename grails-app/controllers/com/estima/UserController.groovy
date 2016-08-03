@@ -1,8 +1,10 @@
 package com.estima
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.rest.RestfulController
 import org.springframework.http.HttpStatus
 
+@Secured(["isAuthenticated()"])
 class UserController extends RestfulController<User>{
 
     def userService
@@ -14,7 +16,13 @@ class UserController extends RestfulController<User>{
     }
 
     def index() {
-        def users = userService.list()
+        def users
+
+        if (params.email) {
+            users = User.findAllByEmail(params.email)
+        } else {
+            users = userService.list()
+        }
 
         respond users
     }

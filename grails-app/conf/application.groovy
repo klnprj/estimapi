@@ -172,14 +172,14 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [
-        [pattern: '/assets/**',                 filters: 'none'],
-        [pattern: '/**/js/**',                  filters: 'none'],
-        [pattern: '/**/css/**',                 filters: 'none'],
-        [pattern: '/**/images/**',              filters: 'none'],
-        [pattern: '/**/favicon.ico',            filters: 'none'],
-        [pattern: '/oauth/token',               filters: 'JOINED_FILTERS,-oauth2ProviderFilter,-securityContextPersistenceFilter,-logoutFilter,-authenticationProcessingFilter,-rememberMeAuthenticationFilter,-exceptionTranslationFilter'],
-        [pattern: '/securedOAuth2Resources/**', filters: 'JOINED_FILTERS,-securityContextPersistenceFilter,-logoutFilter,-authenticationProcessingFilter,-rememberMeAuthenticationFilter,-oauth2BasicAuthenticationFilter,-exceptionTranslationFilter'],
-        [pattern: '/**',                        filters: 'JOINED_FILTERS,-statelessSecurityContextPersistenceFilter,-oauth2ProviderFilter,-clientCredentialsTokenEndpointFilter,-oauth2BasicAuthenticationFilter,-oauth2ExceptionTranslationFilter']
+        [pattern: '/assets/**',         filters: 'none'],
+        [pattern: '/**/js/**',          filters: 'none'],
+        [pattern: '/**/css/**',         filters: 'none'],
+        [pattern: '/**/images/**',      filters: 'none'],
+        [pattern: '/**/favicon.ico',    filters: 'none'],
+        [pattern: '/oauth/token',       filters: 'JOINED_FILTERS,-oauth2ProviderFilter,-securityContextPersistenceFilter,-logoutFilter,-authenticationProcessingFilter,-rememberMeAuthenticationFilter,-exceptionTranslationFilter'],
+        [pattern: '/api/**',            filters: 'JOINED_FILTERS,-securityContextPersistenceFilter,-logoutFilter,-authenticationProcessingFilter,-rememberMeAuthenticationFilter,-oauth2BasicAuthenticationFilter,-exceptionTranslationFilter'],
+        [pattern: '/**',                filters: 'JOINED_FILTERS,-statelessSecurityContextPersistenceFilter,-oauth2ProviderFilter,-clientCredentialsTokenEndpointFilter,-oauth2BasicAuthenticationFilter,-oauth2ExceptionTranslationFilter']
 ]
 
 grails.plugin.springsecurity.providerNames = [
