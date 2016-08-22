@@ -1,11 +1,13 @@
 package com.estima
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.rest.RestfulController
 import grails.validation.Validateable
 import org.springframework.http.HttpStatus
 
 import java.sql.Timestamp
 
+@Secured(["isAuthenticated()"])
 class PositionController extends RestfulController<Position> {
 
     def positionService

@@ -1,8 +1,10 @@
 package com.estima
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.rest.RestfulController
 import org.springframework.http.HttpStatus
 
+@Secured(["isAuthenticated()"])
 class DealerController extends RestfulController<Dealer>{
 
     def dealerService
