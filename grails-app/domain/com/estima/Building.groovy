@@ -6,8 +6,10 @@ class Building {
     String address
     String location
     String client
-    String manager
     String project
+    User author
+
+    static belongsTo = [author: User]
 
     static constraints = {
     }
