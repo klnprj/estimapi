@@ -33,6 +33,12 @@ class UrlMappings {
             "/messages"(controller: 'message', action: 'save', method: 'POST')
             "/messages"(controller: 'message', action: 'index', method: 'GET')
             "/messages/$id"(controller: 'message', action: 'show', method: 'GET')
+
+            "/dictionaries"(controller: 'dictionary', action: 'index', method: 'GET')
+            "/dictionaries/$key"(controller: 'dictionaryItem', action: 'index', method: 'GET')
+            "/dictionaries/$key/count"(controller: 'dictionaryItem', action: 'countItems', method: 'GET')
+            "/dictionaries/$key"(controller: 'dictionaryItem', action: 'save', method: 'POST')
+            "/dictionaries/$key"(controller: 'dictionaryItem', action: 'delete', method: 'DELETE')
         }
     }
 }

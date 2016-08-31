@@ -1,6 +1,7 @@
 import com.estima.Dealer
 import com.estima.auth.Role
 import com.estima.User
+import com.estima.Dictionary
 import com.estima.auth.UserRole
 import com.estima.auth.Client
 import grails.util.Environment
@@ -51,6 +52,15 @@ class BootStrap {
         if (Dealer.count() == 0) {
             new Dealer(name: 'Дилер 1').save(failOnError: true)
             new Dealer(name: 'Дилер 2').save(failOnError: true)
+        }
+
+        if (Dictionary.count() == 0) {
+            new Dictionary(key: 'customers', name: 'Заказчики').save(failOnError: true)
+            new Dictionary(key: 'designers', name: 'Проектные организации').save(failOnError: true)
+            new Dictionary(key: 'dealers', name: 'Дилеры').save(failOnError: true)
+            new Dictionary(key: 'contractors', name: 'Генеральные подрядчики').save(failOnError: true)
+            new Dictionary(key: 'subcontractors', name: 'Субподрядчики').save(failOnError: true)
+            new Dictionary(key: 'architects', name: 'Архитекторы').save(failOnError: true)
         }
 
         Environment.executeForCurrentEnvironment {
