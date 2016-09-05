@@ -12,4 +12,9 @@ class DictionaryController extends RestfulController<Dictionary> {
         super(Dictionary)
     }
 
+    def show() {
+        def dictionary = Dictionary.findByKey(params.key)
+
+        respond dictionary
+    }
 }

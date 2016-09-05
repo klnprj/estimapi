@@ -35,10 +35,11 @@ class UrlMappings {
             "/messages/$id"(controller: 'message', action: 'show', method: 'GET')
 
             "/dictionaries"(controller: 'dictionary', action: 'index', method: 'GET')
-            "/dictionaries/$key"(controller: 'dictionaryItem', action: 'index', method: 'GET')
+            "/dictionaries/$key"(controller: 'dictionary', action: 'show', method: 'GET')
+            "/dictionaries/$key/items"(controller: 'dictionaryItem', action: 'index', method: 'GET')
             "/dictionaries/$key/count"(controller: 'dictionaryItem', action: 'countItems', method: 'GET')
-            "/dictionaries/$key"(controller: 'dictionaryItem', action: 'save', method: 'POST')
-            "/dictionaries/$key"(controller: 'dictionaryItem', action: 'delete', method: 'DELETE')
+            "/dictionaries/$key/items"(controller: 'dictionaryItem', action: 'save', method: 'POST')
+            "/dictionaries/$key/items/$id"(controller: 'dictionaryItem', action: 'delete', method: 'DELETE')
         }
     }
 }
