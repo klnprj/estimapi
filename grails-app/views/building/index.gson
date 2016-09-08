@@ -1,0 +1,7 @@
+import com.estima.Building
+
+model {
+    Iterable<Building> buildingList
+}
+
+json tmpl.'/building/building'(buildingList)

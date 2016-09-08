@@ -40,6 +40,7 @@ class UrlMappings {
             "/dictionaries/$key/count"(controller: 'dictionaryItem', action: 'countItems', method: 'GET')
             "/dictionaries/$key/items"(controller: 'dictionaryItem', action: 'save', method: 'POST')
             "/dictionaries/$key/items/$id"(controller: 'dictionaryItem', action: 'delete', method: 'DELETE')
+            "/dictionaries/items/$id"(controller: "dictionaryItem", action: "show", method: 'GET')
         }
     }
 }

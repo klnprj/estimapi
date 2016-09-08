@@ -14,11 +14,19 @@ class DictionaryItemController extends RestfulController<DictionaryItem> {
         super(DictionaryItem)
     }
 
-    def index(String key, Integer max, Integer offset) {
+    def index(String key, Integer max, Integer offset, String q) {
         params.max = Math.min(max ?: 10, 100)
         params.offset = offset ?: 0
 
-        def items = DictionaryItem.findAllByDictionary(Dictionary.findByKey(key), params)
+        def items = DictionaryItem.createCriteria().list(params) {
+            dictionary {
+                eq 'key', key
+            }
+
+            if (q) {
+                ilike 'title', "%${q.trim()}%"
+            }
+        }
 
         respond items
     }

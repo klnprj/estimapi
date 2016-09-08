@@ -16,19 +16,32 @@ class BuildingController extends RestfulController<Building> {
         super(Building)
     }
 
+    protected Building queryForResource(Serializable id) {
+        Building item = Building.findById(id, [fetch: [client: 'eager', project: 'eager']])
+
+        return item
+    }
+
     def index() {
-        def buildings
         params.latlng = params.latlng?.collect{ Double.parseDouble(it)}
 
-        buildings = buildingService.list(params.latlng, params.int('radius'))
+        def buildingList = buildingService.list(params.latlng, params.int('radius'))
 
-        respond buildings
+        respond buildingList
+    }
+
+    def show() {
+        Building item = queryForResource(params.long('id'))
+
+        respond item
     }
 
     def save() {
         def p = request.JSON
         def authorId = (Long) springSecurityService.getCurrentUserId()
-        def building = buildingService.create(p.name, p.address, p.location, p.client, p.project, authorId)
+        Long clientId = p.client?.id
+        Long projectId = p.project?.id
+        def building = buildingService.create(p.name, p.address, p.location, clientId, projectId, authorId)
 
         if (building.hasErrors()) {
             respond building.errors, [status: HttpStatus.METHOD_NOT_ALLOWED]
@@ -41,7 +54,9 @@ class BuildingController extends RestfulController<Building> {
     def update() {
         def p = request.JSON
         Long id = params.long('id')
-        def building = buildingService.update(id, p.name, p.address, p.location, p.client, p.project)
+        Long clientId = p.client?.id
+        Long projectId = p.project?.id
+        def building = buildingService.update(id, p.name, p.address, p.location, clientId, projectId)
 
         if (!building) {
             render status: HttpStatus.NOT_FOUND

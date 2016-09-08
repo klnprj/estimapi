@@ -5,8 +5,8 @@ class Building {
     String name
     String address
     String location
-    String client
-    String project
+    DictionaryItem client
+    DictionaryItem project
     User author
 
     static belongsTo = [author: User]

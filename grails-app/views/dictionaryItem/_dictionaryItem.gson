@@ -1,0 +1,13 @@
+import com.estima.DictionaryItem
+
+model {
+    DictionaryItem dictionaryItem
+}
+
+json {
+    id dictionaryItem.id
+    title dictionaryItem.title
+    contactName dictionaryItem.contactName
+    contactPosition dictionaryItem.contactPosition
+    phone dictionaryItem.phone
+}
