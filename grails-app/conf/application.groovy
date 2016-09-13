@@ -103,7 +103,7 @@ environments {
     }
     staging {
         dataSource {
-            dbCreate = 'update'
+            dbCreate = 'validate'
             url = "jdbc:postgresql://127.0.0.1:5432/${dbname}"
             driverClassName = "org.postgresql.Driver"
             dialect = org.hibernate.dialect.PostgreSQL9Dialect
@@ -119,7 +119,7 @@ environments {
     }
     production {
         dataSource {
-            dbCreate = 'update'
+            dbCreate = 'validate'
             url = "jdbc:postgresql://127.0.0.1:5432/${dbname}"
             driverClassName = "org.postgresql.Driver"
             dialect = org.hibernate.dialect.PostgreSQL9Dialect
