@@ -5,7 +5,7 @@ import java.sql.Timestamp
 class Position {
 
     Building building
-    Dealer dealer
+    DictionaryItem dealer
     Timestamp dateCreated
     String contactName
     String type
@@ -15,7 +15,7 @@ class Position {
     String status
     Timestamp dateShipped
 
-    static belongsTo = [building: Building, dealer: Dealer]
+    static belongsTo = [building: Building]
 
     static constraints = {
     }

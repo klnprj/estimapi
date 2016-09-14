@@ -1,0 +1,7 @@
+import com.estima.Position
+
+model {
+    Iterable<Position> positionList
+}
+
+json g.render(template: '/position/position', collection: positionList, var: 'position')

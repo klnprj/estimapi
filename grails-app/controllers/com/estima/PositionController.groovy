@@ -21,7 +21,13 @@ class PositionController extends RestfulController<Position> {
     def index() {
         List result = positionService.list()
 
-        respond result
+        render view: '/position/index', model: [positionList: result]
+    }
+
+    def show() {
+        Position item = queryForResource(params.long('id'))
+
+        respond item
     }
 
     def save() {

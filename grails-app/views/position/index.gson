@@ -1,0 +1,26 @@
+import com.estima.Position
+
+model {
+    Iterable<Position> positionList
+}
+
+json(positionList) { Position position ->
+    id position.id
+    building tmpl.'/building/building'(position.building)
+    contactName position.contactName
+    dateCreated position.dateCreated
+    dateShipped position.dateShipped
+    dealer {
+        id position.dealer.id
+        title position.dealer.title
+        contactName position.dealer.contactName
+        contactPosition position.dealer.contactPosition
+        phone position.dealer.phone
+        name position.dealer.title
+    }
+    grossPrice position.grossPrice
+    spec position.spec
+    status position.status
+    total position.total
+    type position.type
+}

@@ -10,4 +10,5 @@ json {
     contactName dictionaryItem.contactName
     contactPosition dictionaryItem.contactPosition
     phone dictionaryItem.phone
+    name dictionaryItem.title
 }

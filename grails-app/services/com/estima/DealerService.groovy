@@ -6,7 +6,7 @@ import grails.transaction.Transactional
 class DealerService {
 
     List list() {
-        List result = Dealer.list()
+        List result = DictionaryItem.findAllByDictionary(Dictionary.findByKey('dealers'))
 
         return result
     }
