@@ -18,8 +18,8 @@ class PositionController extends RestfulController<Position> {
         super(Position)
     }
 
-    def index() {
-        List result = positionService.list()
+    def index(Long buildingId) {
+        List result = positionService.list(buildingId)
 
         render view: '/position/index', model: [positionList: result]
     }
@@ -87,6 +87,15 @@ class PositionCreateCommand implements Validateable {
     String total
     String status
     String dateShipped
+
+    static constraints = {
+        type nullable: true
+        spec nullable: true
+        grossPrice nullable: true
+        total nullable: true
+        status nullable: true
+        dateShipped nullable: true
+    }
 }
 
 

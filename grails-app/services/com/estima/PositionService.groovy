@@ -10,8 +10,14 @@ class PositionService {
 
     def dataSource
 
-    List list() {
-        List result = Position.list()
+    List list(Long buildingId) {
+        List result
+
+        if (buildingId) {
+            result = Position.findAllByBuilding(Building.load(buildingId))
+        } else {
+            result = Position.list()
+        }
 
         return result
     }
@@ -19,7 +25,7 @@ class PositionService {
     Position create(Long buildingId, Long dealerId, String contactName, String type, String spec, String grossPrice, String total, String status, String dateShipped) {
         Position position = new Position(building: Building.load(buildingId), dealer: DictionaryItem.load(dealerId),
                 dateCreated: new Timestamp(new Date().time), contactName: contactName, type: type, spec: spec,
-                grossPrice: grossPrice, total: total, status: status, dateShipped: new Timestamp(new Date().time))
+                grossPrice: grossPrice, total: total, status: status, dateShipped: null)
 
         position.save()
 
@@ -33,7 +39,7 @@ class PositionService {
 
     boolean delete(Long id) {
         def sql = new Sql(dataSource)
-        Position position = Position.get('id')
+        Position position = Position.get(id)
 
         if (!position) {
             log.debug "Cannot find Position with id: $id"

@@ -15,7 +15,7 @@ class DictionaryItemController extends RestfulController<DictionaryItem> {
     }
 
     def index(String key, Integer max, Integer offset, String q) {
-        params.max = Math.min(max ?: 10, 100)
+        params.max = Math.min(max ?: 10, 500)
         params.offset = offset ?: 0
 
         def items = DictionaryItem.createCriteria().list(params) {

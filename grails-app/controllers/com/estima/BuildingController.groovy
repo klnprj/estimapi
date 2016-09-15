@@ -41,7 +41,7 @@ class BuildingController extends RestfulController<Building> {
         def authorId = (Long) springSecurityService.getCurrentUserId()
         Long clientId = p.client?.id
         Long projectId = p.project?.id
-        def building = buildingService.create(p.name, p.address, p.location, clientId, projectId, authorId)
+        def building = buildingService.create(p.name, p.address, p.location, clientId, projectId, authorId, p.description)
 
         if (building.hasErrors()) {
             respond building.errors, [status: HttpStatus.METHOD_NOT_ALLOWED]
@@ -56,7 +56,7 @@ class BuildingController extends RestfulController<Building> {
         Long id = params.long('id')
         Long clientId = p.client?.id
         Long projectId = p.project?.id
-        def building = buildingService.update(id, p.name, p.address, p.location, clientId, projectId)
+        def building = buildingService.update(id, p.name, p.address, p.location, clientId, projectId, p.description)
 
         if (!building) {
             render status: HttpStatus.NOT_FOUND

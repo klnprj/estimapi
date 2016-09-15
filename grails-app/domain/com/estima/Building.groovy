@@ -8,10 +8,12 @@ class Building {
     DictionaryItem client
     DictionaryItem project
     User author
+    String description
 
     static belongsTo = [author: User]
 
     static constraints = {
+        description nullable: true
     }
 
     static mapping = {

@@ -18,6 +18,12 @@ class Position {
     static belongsTo = [building: Building]
 
     static constraints = {
+        type nullable: true
+        spec nullable: true
+        grossPrice nullable: true
+        total nullable: true
+        status nullable: true
+        dateShipped nullable: true
     }
 
     static mapping = {

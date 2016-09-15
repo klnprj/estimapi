@@ -1,4 +1,5 @@
 import com.estima.Dealer
+import com.estima.DictionaryItem
 import com.estima.auth.Role
 import com.estima.User
 import com.estima.Dictionary
@@ -49,23 +50,23 @@ class BootStrap {
             ).save(flush: true)
         }
 
-        if (Dealer.count() == 0) {
-            new Dealer(name: 'Дилер 1').save(failOnError: true)
-            new Dealer(name: 'Дилер 2').save(failOnError: true)
-        }
-
         if (Dictionary.count() == 0) {
-            new Dictionary(key: 'customers', name: 'Заказчики').save(failOnError: true)
-            new Dictionary(key: 'designers', name: 'Проектные организации').save(failOnError: true)
-            new Dictionary(key: 'dealers', name: 'Дилеры').save(failOnError: true)
-            new Dictionary(key: 'contractors', name: 'Генеральные подрядчики').save(failOnError: true)
-            new Dictionary(key: 'subcontractors', name: 'Субподрядчики').save(failOnError: true)
-            new Dictionary(key: 'architects', name: 'Архитекторы').save(failOnError: true)
+            new Dictionary(key: 'customers', name: 'Заказчики').save(failOnError: true, flush: true)
+            new Dictionary(key: 'designers', name: 'Проектные организации').save(failOnError: true, flush: true)
+            new Dictionary(key: 'dealers', name: 'Дилеры').save(failOnError: true, flush: true)
+            new Dictionary(key: 'contractors', name: 'Генеральные подрядчики').save(failOnError: true, flush: true)
+            new Dictionary(key: 'subcontractors', name: 'Субподрядчики').save(failOnError: true, flush: true)
+            new Dictionary(key: 'architects', name: 'Архитекторы').save(failOnError: true, flush: true)
         }
 
         Environment.executeForCurrentEnvironment {
             development {
-
+                new DictionaryItem(dictionary: Dictionary.findByKey('customers'), title: 'Заказчик 1').save(failOnError: true, flush: true)
+                new DictionaryItem(dictionary: Dictionary.findByKey('customers'), title: 'Заказчик 2').save(failOnError: true, flush: true)
+                new DictionaryItem(dictionary: Dictionary.findByKey('designers'), title: 'Проектировщик 1').save(failOnError: true, flush: true)
+                new DictionaryItem(dictionary: Dictionary.findByKey('designers'), title: 'Проектировщик 2').save(failOnError: true, flush: true)
+                new DictionaryItem(dictionary: Dictionary.findByKey('dealers'), title: 'Дилер 1').save(failOnError: true, flush: true)
+                new DictionaryItem(dictionary: Dictionary.findByKey('dealers'), title: 'Дилер 2').save(failOnError: true, flush: true)
             }
         }
     }
