@@ -18,8 +18,8 @@ class MessageController extends RestfulController<Message> {
         super(Message)
     }
 
-    def list() {
-        List result = messageService.list()
+    def index(Long positionId) {
+        List result = messageService.list(positionId)
 
         respond result
     }

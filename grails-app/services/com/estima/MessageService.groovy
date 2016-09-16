@@ -7,8 +7,14 @@ import java.sql.Timestamp
 @Transactional
 class MessageService {
 
-    List list() {
-        List result = Message.list()
+    List list(Long positionId) {
+        List result
+
+        if (positionId) {
+            result = Message.findAllByPosition(Position.load(positionId))
+        } else {
+            result = Message.list()
+        }
 
         return result
     }
