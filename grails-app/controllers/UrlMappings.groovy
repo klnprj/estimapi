@@ -20,6 +20,8 @@ class UrlMappings {
             "/dealers"(controller: 'dealer', action: 'index', method: 'GET')
             "/dealers/$id"(controller: 'dealer', action: 'show', method: 'GET')
 
+            "/locations"(controller: 'building', action: 'index', method: 'GET')
+
             "/buildings"(controller: 'building', action: 'save', method: 'POST')
             "/buildings"(controller: 'building', action: 'index', method: 'GET')
             "/buildings/$id"(controller: 'building', action: 'show', method: 'GET')

@@ -24,10 +24,21 @@ class BuildingController extends RestfulController<Building> {
 
     def index() {
         params.latlng = params.latlng?.collect{ Double.parseDouble(it)}
+        params.sort = params.sort ?: 'name'
+        params.order = params.order ?: 'asc'
+        params.max = Math.min(params.int('max') ?: 10, 100)
+        params.offset = params.offset ?: 0
 
-        def buildingList = buildingService.list(params.latlng, params.int('radius'))
+        def buildingList
 
-        respond buildingList
+        if (params.latlng != null) {
+            buildingList = buildingService.listByLocation(params.latlng, params.int('radius'))
+        } else {
+            buildingList = Building.list(params)//buildingService.list(params.sort, params.order)
+        }
+
+        render view: '/building/index', model: [buildingList: buildingList, totalCount: (Long)buildingList.totalCount]
+
     }
 
     def show() {

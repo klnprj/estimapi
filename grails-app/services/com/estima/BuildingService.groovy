@@ -10,24 +10,21 @@ class BuildingService {
     def grailsWebDataBinder
     def sessionFactory
 
-    List list(List latlng = null, Integer radius = null) {
-        List result
+    List list(String sort, String order, String q = null, Map<String, String> filter = null) {
+        List result = Building.list(sort: sort, order: order)
+
+        return result
+    }
+
+    List listByLocation(List latlng, Integer radius) {
         def session = sessionFactory.currentSession
         def query = session.createSQLQuery("select b.* from building b WHERE ST_DWithin(st_geogfromtext(b.location), Geography(ST_MakePoint(:lon, :lat)), :radius)")
 
-        if (latlng != null) {
-            log.debug("Latlng: [$latlng]")
-            query.addEntity(com.estima.Building)
-            query.setInteger("radius", radius)
-            query.setDouble("lon", (double) latlng?.getAt(1))
-            query.setDouble("lat", (double) latlng?.getAt(0))
-            result = query.list()
-        } else {
-            // return all
-            result = Building.list()
-        }
-
-        return result
+        query.addEntity(com.estima.Building)
+        query.setInteger("radius", radius)
+        query.setDouble("lon", (double) latlng?.getAt(1))
+        query.setDouble("lat", (double) latlng?.getAt(0))
+        return query.list()
     }
 
     Building create(String name, String address, String location, Long clientId, Long projectId, Long authorId, String description) {
