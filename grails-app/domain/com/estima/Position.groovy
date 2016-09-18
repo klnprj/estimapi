@@ -7,6 +7,7 @@ class Position {
     Building building
     DictionaryItem dealer
     Timestamp dateCreated
+    Timestamp lastUpdated
     String contactName
     String type
     String spec
@@ -18,6 +19,8 @@ class Position {
     static belongsTo = [building: Building]
 
     static constraints = {
+        dateCreated nullable: true
+        lastUpdated nullable: true
         type nullable: true
         spec nullable: true
         grossPrice nullable: true

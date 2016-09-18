@@ -6,7 +6,9 @@ model {
 
 json {
     id position.id
-    building tmpl.'/building/building'(position.building)
+    building {
+        id position.building.id
+    }
     contactName position.contactName
     dateCreated position.dateCreated
     dateShipped position.dateShipped

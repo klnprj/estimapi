@@ -29,4 +29,7 @@ json {
         name building.author.name
         email building.author.email
     }
+    dateCreated building.earliestPositionDateCreated
+    lastUpdated building.latestPositionDateUpdated
+    dealers tmpl.'/dictionaryItem/dictionaryItem'(building.positionsDealers)
 }
