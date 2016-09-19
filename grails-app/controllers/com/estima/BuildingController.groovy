@@ -36,11 +36,12 @@ class BuildingController extends RestfulController<Building> {
         if (params.latlng != null) {
             buildingList = buildingService.listByLocation(params.latlng, params.int('radius'))
         } else {
-            buildingList = Building.createCriteria().list(params, {
-                createAlias 'positions', 'p', JoinType.LEFT_OUTER_JOIN
-                createAlias 'p.dealer', 'pd', JoinType.LEFT_OUTER_JOIN
-                resultTransformer Criteria.DISTINCT_ROOT_ENTITY
-            })//buildingService.list(params.sort, params.order)
+            buildingList = Building.list(params)
+//            buildingList = Building.createCriteria().list(params, {
+//                createAlias 'positions', 'p', JoinType.LEFT_OUTER_JOIN
+////                createAlias 'p.dealer', 'pd', JoinType.LEFT_OUTER_JOIN
+//                resultTransformer Criteria.DISTINCT_ROOT_ENTITY
+//            })//buildingService.list(params.sort, params.order)
         }
 
         render view: '/building/index', model: [buildingList: buildingList, totalCount: (Long)buildingList.totalCount]

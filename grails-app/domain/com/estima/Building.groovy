@@ -22,6 +22,7 @@ class Building {
 
     static mapping = {
         id generator: 'sequence', params: [sequence: 'building_id_sequence']
+        positions lazy: false
     }
 
     Timestamp getEarliestPositionDateCreated() {

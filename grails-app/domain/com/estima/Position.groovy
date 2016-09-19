@@ -31,5 +31,6 @@ class Position {
 
     static mapping = {
         id generator: 'sequence', params: [sequence: 'position_id_sequence']
+        dealer lazy: false
     }
 }
