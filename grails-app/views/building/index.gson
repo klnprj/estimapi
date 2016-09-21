@@ -2,10 +2,10 @@ import com.estima.Building
 
 model {
     Iterable<Building> buildingList
-    Long totalCount
+    Integer totalCount
 }
 
 json {
-    items tmpl.'/building/building'(buildingList)
+    items tmpl.'/building/building'(buildingList ?: [])
     total totalCount
 }

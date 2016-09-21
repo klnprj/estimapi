@@ -12,6 +12,7 @@ class Message {
     static belongsTo = [position: Position, author: User]
 
     static constraints = {
+        dateCreated nullable: true
     }
 
     static mapping = {

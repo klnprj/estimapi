@@ -1,0 +1,19 @@
+import com.estima.Comment
+
+model {
+    Comment comment
+}
+
+json {
+    id comment.id
+    building {
+        id comment.building.id
+    }
+    author {
+        id comment.author.id
+        name comment.author.name
+        email comment.author.email
+    }
+    dateCreated comment.dateCreated
+    text comment.text
+}

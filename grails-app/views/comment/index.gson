@@ -1,0 +1,8 @@
+import com.estima.Comment
+
+model {
+    Iterable<Comment> commentList
+}
+
+json tmpl.'/comment/comment'(commentList ?: [])
+

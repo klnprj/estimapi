@@ -67,7 +67,7 @@ grails {
         encoding = 'UTF-8'
     }
     views {
-        'default' { codec = 'html' }//THIS WAS THE SOURCE OF ERROR
+        'default' { codec = 'html' }
         gsp {
             encoding = 'UTF-8'
             htmlcodec = 'xml'

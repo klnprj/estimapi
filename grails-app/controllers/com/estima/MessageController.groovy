@@ -42,7 +42,7 @@ class MessageController extends RestfulController<Message> {
         message = messageService.create(cmd.position?.id, cmd.author?.id, cmd.text)
 
         if (message.hasErrors()) {
-            log.debug 'Cannot create Message'
+            log.debug 'Cannot save Message'
             respond message.errors, [status: HttpStatus.FORBIDDEN]
             return
         }

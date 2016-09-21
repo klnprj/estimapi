@@ -27,6 +27,9 @@ class UrlMappings {
             "/buildings/$id"(controller: 'building', action: 'show', method: 'GET')
             "/buildings/$id"(controller: 'building', action: 'update', method: 'PUT')
 
+            "/buildings/$buildingId/comments"(controller: 'comment', action: 'save', method: 'POST')
+            "/buildings/$buildingId/comments"(controller: 'comment', action: 'index', method: 'GET')
+
             "/positions"(controller: 'position', action: 'save', method: 'POST')
             "/positions"(controller: 'position', action: 'index', method: 'GET')
             "/positions/$id"(controller: 'position', action: 'show', method: 'GET')

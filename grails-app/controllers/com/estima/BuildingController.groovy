@@ -44,7 +44,7 @@ class BuildingController extends RestfulController<Building> {
 //            })//buildingService.list(params.sort, params.order)
         }
 
-        render view: '/building/index', model: [buildingList: buildingList, totalCount: (Long)buildingList.totalCount]
+        render view: '/building/index', model: [buildingList: buildingList, totalCount: buildingList.totalCount]
     }
 
     def show() {
