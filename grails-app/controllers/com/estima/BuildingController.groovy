@@ -25,26 +25,31 @@ class BuildingController extends RestfulController<Building> {
     }
 
     def index() {
-        params.latlng = params.latlng?.collect{ Double.parseDouble(it)}
         params.sort = params.sort ?: 'name'
         params.order = params.order ?: 'asc'
         params.max = Math.min(params.int('max') ?: 10, 100)
         params.offset = params.offset ?: 0
 
-        def buildingList
-
-        if (params.latlng != null) {
-            buildingList = buildingService.listByLocation(params.latlng, params.int('radius'))
-        } else {
-            buildingList = Building.list(params)
+        def buildingList = Building.list(params)
 //            buildingList = Building.createCriteria().list(params, {
 //                createAlias 'positions', 'p', JoinType.LEFT_OUTER_JOIN
 ////                createAlias 'p.dealer', 'pd', JoinType.LEFT_OUTER_JOIN
 //                resultTransformer Criteria.DISTINCT_ROOT_ENTITY
 //            })//buildingService.list(params.sort, params.order)
-        }
 
         render view: '/building/index', model: [buildingList: buildingList, totalCount: buildingList.totalCount]
+    }
+
+    def locations() {
+        params.latlng = params.latlng?.collect{ Double.parseDouble(it)}
+
+        def buildingList = []
+
+        if (params.latlng != null) {
+            buildingList = buildingService.listByLocation(params.latlng, params.int('radius'))
+        }
+
+        render view: '/building/list', model: [buildingList: buildingList]
     }
 
     def show() {
