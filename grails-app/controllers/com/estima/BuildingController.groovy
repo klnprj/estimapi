@@ -43,11 +43,7 @@ class BuildingController extends RestfulController<Building> {
     def locations() {
         params.latlng = params.latlng?.collect{ Double.parseDouble(it)}
 
-        def buildingList = []
-
-        if (params.latlng != null) {
-            buildingList = buildingService.listByLocation(params.latlng, params.int('radius'))
-        }
+        def buildingList = buildingService.listByLocation(params.latlng, params.int('radius'))
 
         render view: '/building/list', model: [buildingList: buildingList]
     }

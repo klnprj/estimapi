@@ -2,6 +2,7 @@ package com.estima
 
 import grails.databinding.SimpleMapDataBindingSource
 import grails.transaction.Transactional
+import grails.util.Environment
 import groovy.sql.Sql
 
 @Transactional
@@ -19,6 +20,10 @@ class BuildingService {
     List listByLocation(List latlng, Integer radius) {
         def session = sessionFactory.currentSession
         def query = session.createSQLQuery("select b.* from building b WHERE ST_DWithin(st_geogfromtext(b.location), Geography(ST_MakePoint(:lon, :lat)), :radius)")
+
+        if (Environment.current == Environment.DEVELOPMENT) {
+            return Building.list()
+        }
 
         query.addEntity(com.estima.Building)
         query.setInteger("radius", radius)
