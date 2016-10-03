@@ -21,7 +21,7 @@ class BuildingService {
         def session = sessionFactory.currentSession
         def query = session.createSQLQuery("select b.* from building b WHERE ST_DWithin(st_geogfromtext(b.location), Geography(ST_MakePoint(:lon, :lat)), :radius)")
 
-        if (Environment.current == Environment.DEVELOPMENT) {
+        if (Environment.current == Environment.DEVELOPMENT || !latlng || !radius) {
             return Building.list()
         }
 
