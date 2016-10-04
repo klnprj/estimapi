@@ -12,6 +12,7 @@ class Comment {
 
     static constraints = {
         dateCreated nullable: true
+        text maxSize: 2000
     }
 
     static mapping = {
