@@ -22,7 +22,7 @@ class Position {
         dateCreated nullable: true
         lastUpdated nullable: true
         type nullable: true
-        spec nullable: true
+        spec nullable: true, maxSize: 512
         grossPrice nullable: true
         total nullable: true
         status nullable: true
