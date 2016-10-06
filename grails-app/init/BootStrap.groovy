@@ -36,9 +36,9 @@ class BootStrap {
             }
         }
 
-        assert User.count() == 2
-        assert Role.count() == 2
-        assert UserRole.count() == 2
+//        assert User.count() == 2
+//        assert Role.count() == 2
+//        assert UserRole.count() == 2
 
         if (Client.count() == 0) {
             new Client(

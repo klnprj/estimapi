@@ -30,12 +30,7 @@ class BuildingController extends RestfulController<Building> {
         params.max = Math.min(params.int('max') ?: 10, 100)
         params.offset = params.offset ?: 0
 
-        def buildingList = Building.list(params)
-//            buildingList = Building.createCriteria().list(params, {
-//                createAlias 'positions', 'p', JoinType.LEFT_OUTER_JOIN
-////                createAlias 'p.dealer', 'pd', JoinType.LEFT_OUTER_JOIN
-//                resultTransformer Criteria.DISTINCT_ROOT_ENTITY
-//            })//buildingService.list(params.sort, params.order)
+        def buildingList = buildingService.list(params.sort, params.order, params.max, params.offset, params.q?.trim())
 
         render view: '/building/index', model: [buildingList: buildingList, totalCount: buildingList.totalCount]
     }

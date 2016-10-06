@@ -11,8 +11,15 @@ class BuildingService {
     def grailsWebDataBinder
     def sessionFactory
 
-    List list(String sort, String order, String q = null, Map<String, String> filter = null) {
-        List result = Building.list(sort: sort, order: order)
+    List list(String sort, String order, def max, def offset, String q = null, Map<String, String> filter = null) {
+        List result = Building.createCriteria().list([sort: sort, order: order, max: max, offset: offset], {
+            if (q != null) {
+                or {
+                    ilike('name', "%$q%")
+                    ilike('address', "%$q%")
+                }
+            }
+        })
 
         return result
     }
