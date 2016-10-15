@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus
 @Secured(["isAuthenticated()"])
 class CommentController extends RestfulController<Comment> {
 
+    def springSecurityService
     def commentService
 
     static responseFormats = ['json']
@@ -25,9 +26,10 @@ class CommentController extends RestfulController<Comment> {
     def save(Long buildingId) {
         def p = request.JSON
         def cmd = new CommentCreateCommand()
+        def authorId = (Long) springSecurityService.getCurrentUserId()
         def comment
 
-        bindData cmd, [building: Building.load(buildingId), author: User.load(p.authorId), text: p.text]
+        bindData cmd, [building: Building.load(buildingId), author: User.load(authorId), text: p.text]
 
         cmd.validate()
 

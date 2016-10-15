@@ -10,6 +10,7 @@ import java.sql.Timestamp
 @Secured(["isAuthenticated()"])
 class MessageController extends RestfulController<Message> {
 
+    def springSecurityService
     def messageService
 
     static responseFormats = ['json']
@@ -27,9 +28,10 @@ class MessageController extends RestfulController<Message> {
     def save() {
         def p = request.JSON
         MessageCreateCommand cmd = new MessageCreateCommand()
+        def authorId = (Long) springSecurityService.getCurrentUserId()
         Message message
 
-        bindData cmd, [text: p.text, position: Position.load(p.positionId), author: User.load(p.authorId)]
+        bindData cmd, [text: p.text, position: Position.load(p.positionId), author: User.load(authorId)]
 
         cmd.validate()
 
