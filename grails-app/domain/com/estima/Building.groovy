@@ -17,6 +17,8 @@ class Building {
     static hasMany = [positions: Position]
 
     static constraints = {
+        client nullable: true
+        project nullable: true
         description nullable: true
     }
 

@@ -11,18 +11,18 @@ json {
     location building.location
     description building.description
     client {
-        id building.client.id
-        title building.client.title
-        contactName building.client.contactName
-        contactPosition building.client.contactPosition
-        phone building.client.phone
+        id building.client?.id
+        title building.client?.title
+        contactName building.client?.contactName
+        contactPosition building.client?.contactPosition
+        phone building.client?.phone
     }
     project {
-        id building.project.id
-        title building.project.title
-        contactName building.project.contactName
-        contactPosition building.project.contactPosition
-        phone building.project.phone
+        id building.project?.id
+        title building.project?.title
+        contactName building.project?.contactName
+        contactPosition building.project?.contactPosition
+        phone building.project?.phone
     }
     author {
         id building.author.id
