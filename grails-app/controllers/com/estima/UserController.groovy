@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus
 @Secured(["isAuthenticated()"])
 class UserController extends RestfulController<User>{
 
+    def springSecurityService
     def userService
 
     static responseFormats = ['json']
@@ -16,13 +17,7 @@ class UserController extends RestfulController<User>{
     }
 
     def index() {
-        def users
-
-        if (params.email) {
-            users = User.findAllByEmail(params.email)
-        } else {
-            users = userService.list()
-        }
+        def users = userService.list()
 
         respond users
     }
@@ -36,5 +31,11 @@ class UserController extends RestfulController<User>{
         }
 
         respond user
+    }
+
+    def profile() {
+        def currentUser = springSecurityService.getCurrentUser()
+
+        respond currentUser
     }
 }

@@ -15,6 +15,7 @@ class UrlMappings {
             "/users"(controller: 'user', action: 'save', method: 'POST')
             "/users"(controller: 'user', action: 'index', method: 'GET')
             "/users/$id"(controller: 'user', action: 'show', method: 'GET')
+            "/users/profile"(controller: 'user', action: 'profile', method: 'GET')
 
             "/dealers"(controller: 'dealer', action: 'save', method: 'POST')
             "/dealers"(controller: 'dealer', action: 'index', method: 'GET')
