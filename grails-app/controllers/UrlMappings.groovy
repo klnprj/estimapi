@@ -31,6 +31,10 @@ class UrlMappings {
             "/buildings/$buildingId/comments"(controller: 'comment', action: 'save', method: 'POST')
             "/buildings/$buildingId/comments"(controller: 'comment', action: 'index', method: 'GET')
 
+            "/buildings/$buildingId/contacts"(controller: 'contact', action: 'index', method: 'GET')
+            "/buildings/$buildingId/contacts"(controller: 'contact', action: 'save', method: 'POST')
+            "/buildings/$buildingId/contacts/$id"(controller: 'contact', action: 'delete', method: 'DELETE')
+
             "/positions"(controller: 'position', action: 'save', method: 'POST')
             "/positions"(controller: 'position', action: 'index', method: 'GET')
             "/positions/$id"(controller: 'position', action: 'show', method: 'GET')

@@ -1,0 +1,14 @@
+import com.estima.Contact
+
+model {
+    Contact contact
+}
+
+json {
+    id contact.id
+    building {
+        id contact.building.id
+    }
+    contact tmpl.'/dictionaryItem/dictionaryItem'(contact.contact)
+    info contact.info
+}

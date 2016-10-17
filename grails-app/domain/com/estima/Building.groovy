@@ -14,7 +14,7 @@ class Building {
 
     static belongsTo = [author: User]
 
-    static hasMany = [positions: Position]
+    static hasMany = [positions: Position, contacts: Contact]
 
     static constraints = {
         client nullable: true

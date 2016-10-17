@@ -1,0 +1,7 @@
+import com.estima.Contact
+
+model {
+    Iterable<Contact> contactList
+}
+
+json tmpl.'/contact/contact'(contactList ?: [])
