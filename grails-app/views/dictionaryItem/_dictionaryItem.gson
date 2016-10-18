@@ -11,4 +11,5 @@ json {
     contactPosition dictionaryItem.contactPosition
     phone dictionaryItem.phone
     name dictionaryItem.title
+    dictionary tmpl.'/dictionary/dictionary'(dictionaryItem.dictionary)
 }

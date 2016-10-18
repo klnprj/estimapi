@@ -1,0 +1,8 @@
+model {
+    com.estima.Dictionary dictionary
+}
+
+json {
+    key dictionary.key
+    name dictionary.name
+}
