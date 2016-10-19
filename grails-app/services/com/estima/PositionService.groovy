@@ -22,9 +22,11 @@ class PositionService {
         return result
     }
 
-    Position create(Long buildingId, Long dealerId, String contactName, String type, String spec, String grossPrice, String total, String status, String dateShipped) {
+    Position create(Long buildingId, Long dealerId, String contactName, String type, String spec, Integer quantity,
+                    String grossPrice, Integer dealerPrice, String total, String status, String dateShipped) {
         Position position = new Position(building: Building.load(buildingId), dealer: DictionaryItem.load(dealerId),
                 dateCreated: new Timestamp(new Date().time), contactName: contactName, type: type, spec: spec,
+                quantity: quantity, dealerPrice: dealerPrice,
                 grossPrice: grossPrice, total: total, status: status, dateShipped: null)
 
         position.save()

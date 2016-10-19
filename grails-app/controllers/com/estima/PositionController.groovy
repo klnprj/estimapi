@@ -41,8 +41,11 @@ class PositionController extends RestfulController<Position> {
         String total = p.total
         String status = p.status
         String dateShipped = p.dateShipped
+        Integer dealerPrice = p.dealerPrice
+        Integer quantity = p.quantity
         PositionCreateCommand cmd = new PositionCreateCommand([buildingId: buildingId, dealerId: dealerId, contactName: contactName,
-                type: type, spec: spec, grossPrice: grossPrice, total: total, status: status, dateShipped: dateShipped])
+                type: type, spec: spec, grossPrice: grossPrice, total: total, status: status, dateShipped: dateShipped,
+                dealerPrice: dealerPrice, quantity: quantity])
         Position position
 
         cmd.validate()
@@ -53,8 +56,8 @@ class PositionController extends RestfulController<Position> {
             return
         }
 
-        position = positionService.create(cmd.buildingId, cmd.dealerId, cmd.contactName, cmd.type, cmd.spec,
-                cmd.grossPrice, cmd.total, cmd.status, cmd.dateShipped)
+        position = positionService.create(cmd.buildingId, cmd.dealerId, cmd.contactName, cmd.type, cmd.spec, cmd.quantity,
+                cmd.grossPrice, cmd.dealerPrice, cmd.total, cmd.status, cmd.dateShipped)
 
         if (position.hasErrors()) {
             log.debug('Wrong Position attributes')
@@ -87,6 +90,8 @@ class PositionCreateCommand implements Validateable {
     String total
     String status
     String dateShipped
+    Integer dealerPrice
+    Integer quantity
 
     static constraints = {
         type nullable: true
@@ -95,6 +100,8 @@ class PositionCreateCommand implements Validateable {
         total nullable: true
         status nullable: true
         dateShipped nullable: true
+        dealerPrice nullable: true
+        quantity nullable: true
     }
 }
 

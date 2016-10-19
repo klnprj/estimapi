@@ -15,6 +15,8 @@ class Position {
     String total
     String status
     Timestamp dateShipped
+    Integer dealerPrice
+    Integer quantity
 
     static belongsTo = [building: Building]
 
@@ -27,6 +29,8 @@ class Position {
         total nullable: true
         status nullable: true
         dateShipped nullable: true
+        dealerPrice nullable: true
+        quantity nullable: true
     }
 
     static mapping = {

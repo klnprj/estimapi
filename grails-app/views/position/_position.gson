@@ -21,7 +21,9 @@ json {
         name position.dealer.title
     }
     grossPrice position.grossPrice
+    dealerPrice position.dealerPrice
     spec position.spec
+    quantity position.quantity
     status position.status
     total position.total
     type position.type
