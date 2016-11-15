@@ -11,6 +11,7 @@ class Building {
     DictionaryItem project
     User author
     String description
+    String status
 
     static belongsTo = [author: User]
 
@@ -20,6 +21,7 @@ class Building {
         client nullable: true
         project nullable: true
         description nullable: true
+        status nullable: true
     }
 
     static mapping = {

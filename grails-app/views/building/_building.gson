@@ -33,4 +33,5 @@ json {
     lastUpdated building.latestPositionDateUpdated
     dealers tmpl.'/dictionaryItem/dictionaryItem'(building.positionsDealers)
     contacts tmpl.'/contact/contact'(building.contacts ?: [])
+    status building.status
 }

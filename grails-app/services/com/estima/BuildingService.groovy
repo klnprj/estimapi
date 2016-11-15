@@ -47,11 +47,12 @@ class BuildingService {
         return query.list()
     }
 
-    Building create(String name, String address, String location, Long clientId, Long projectId, Long authorId, String description) {
+    Building create(String name, String address, String location, Long clientId, Long projectId, Long authorId,
+                    String description, String status) {
         Building building = new Building(name: name, address: address, location: location,
                 client: clientId != null ? DictionaryItem.load(clientId) : null,
                 project: projectId != null ? DictionaryItem.load(projectId) : null,
-                author: User.load(authorId), description: description)
+                author: User.load(authorId), description: description, status: status)
 
         building.save()
 
@@ -64,12 +65,13 @@ class BuildingService {
         return building
     }
 
-    Building update(Long id, String name, String address, String location, Long clientId, Long projectId, String description) {
+    Building update(Long id, String name, String address, String location, Long clientId, Long projectId,
+                    String description, String status) {
         Building building = Building.get(id)
         Map properties = [name: name, address: address, location: location,
                           client: clientId != null ? DictionaryItem.load(clientId) : null,
                           project: projectId != null ? DictionaryItem.load(projectId) : null,
-                          description: description]
+                          description: description, status: status]
 
         if (!building) {
             log.debug "Cannot find Building with id: $id"
