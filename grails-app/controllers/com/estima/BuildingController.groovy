@@ -30,8 +30,10 @@ class BuildingController extends RestfulController<Building> {
         params.max = Math.min(params.int('max') ?: 10, 100)
         params.offset = params.offset ?: 0
         List authorsIds = params.list('authorId').collect{ it.toLong() }
+        List<String> statuses = params.list('status')
 
-        def buildingList = buildingService.list(params.sort, params.order, params.max, params.offset, params.q?.trim(), authorsIds)
+        def buildingList = buildingService.listBuildings(params.sort, params.order, params.max, params.offset, params.q?.trim(),
+                authorsIds, statuses)
 
         render view: '/building/index', model: [buildingList: buildingList, totalCount: buildingList.totalCount]
     }

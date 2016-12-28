@@ -11,7 +11,9 @@ class BuildingService {
     def grailsWebDataBinder
     def sessionFactory
 
-    List list(String sort, String order, def max, def offset, String q = null, List authorsIds, Map<String, String> filter = null) {
+    List listBuildings(String sort, String order, def max, def offset, String q = null, List authorsIds, List<String> statuses,
+              Map<String, String> filter = null) {
+
         List result = Building.createCriteria().list([sort: sort, order: order, max: max, offset: offset], {
             if (q != null) {
                 or {
@@ -24,6 +26,14 @@ class BuildingService {
                 or {
                     authorsIds.each{ id ->
                         eq('author.id', id)
+                    }
+                }
+            }
+
+            if (statuses) {
+                or {
+                    statuses.each{ status ->
+                        eq('status', status)
                     }
                 }
             }
