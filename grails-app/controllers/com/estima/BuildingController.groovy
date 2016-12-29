@@ -25,23 +25,29 @@ class BuildingController extends RestfulController<Building> {
     }
 
     def index() {
-        params.sort = params.sort ?: 'name'
-        params.order = params.order ?: 'asc'
-        params.max = Math.min(params.int('max') ?: 10, 100)
-        params.offset = params.offset ?: 0
-        List authorsIds = params.list('authorId').collect{ it.toLong() }
-        List<String> statuses = params.list('status')
+        BuildingSearchCriteria criteria = new BuildingSearchCriteria(params.sort, params.order, params.int('max'),
+                params.int('offset'))
+        BuildingSearchFilter filter = new BuildingSearchFilter(params.q, params.list('authorId').collect{it.toLong()},
+                params.list('status'))
 
-        def buildingList = buildingService.listBuildings(params.sort, params.order, params.max, params.offset, params.q?.trim(),
-                authorsIds, statuses)
+        def buildingList = buildingService.listBuildings(criteria, filter)
 
         render view: '/building/index', model: [buildingList: buildingList, totalCount: buildingList.totalCount]
     }
 
     def locations() {
-        params.latlng = params.latlng?.collect{ Double.parseDouble(it)}
+        LatLng latLng = new LatLng(params.latlng?.collect{ Double.parseDouble(it)})
+        BuildingLocationCriteria locationCriteria = new BuildingLocationCriteria(latLng, params.int('radius'))
+        BuildingSearchFilter filter = new BuildingSearchFilter(q: params.q,
+                authorsIds: params.list('authorId').collect{it.toLong()}, statuses: params.list('status'))
 
-        def buildingList = buildingService.listByLocation(params.latlng, params.int('radius'))
+        def buildingList = []
+
+        if (!locationCriteria.latLng.isEmpty() && locationCriteria.radius) {
+            buildingList = buildingService.listByLocation(locationCriteria)
+        } else {
+            buildingList = buildingService.listBuildings(new BuildingSearchCriteria(), filter)
+        }
 
         render view: '/building/list', model: [buildingList: buildingList]
     }

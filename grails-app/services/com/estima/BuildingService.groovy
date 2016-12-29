@@ -11,28 +11,27 @@ class BuildingService {
     def grailsWebDataBinder
     def sessionFactory
 
-    List listBuildings(String sort, String order, def max, def offset, String q = null, List authorsIds, List<String> statuses,
-              Map<String, String> filter = null) {
+    List listBuildings(BuildingSearchCriteria criteria, BuildingSearchFilter filter) {
 
-        List result = Building.createCriteria().list([sort: sort, order: order, max: max, offset: offset], {
-            if (q != null) {
+        List result = Building.createCriteria().list([sort: criteria.sort, order: criteria.order, max: criteria.max, offset: criteria.offset], {
+            if (filter.q != null) {
                 or {
-                    ilike('name', "%$q%")
-                    ilike('address', "%$q%")
+                    ilike('name', "%${filter.q}%")
+                    ilike('address', "%${filter.q}%")
                 }
             }
 
-            if (authorsIds) {
+            if (filter.authorsIds) {
                 or {
-                    authorsIds.each{ id ->
+                    filter.authorsIds.each{ id ->
                         eq('author.id', id)
                     }
                 }
             }
 
-            if (statuses) {
+            if (filter.statuses) {
                 or {
-                    statuses.each{ status ->
+                    filter.statuses.each{ status ->
                         eq('status', status)
                     }
                 }
@@ -42,18 +41,18 @@ class BuildingService {
         return result
     }
 
-    List listByLocation(List latlng, Integer radius) {
+    List listByLocation(BuildingLocationCriteria locationCriteria) {
         def session = sessionFactory.currentSession
         def query = session.createSQLQuery("select b.* from building b WHERE ST_DWithin(st_geogfromtext(b.location), Geography(ST_MakePoint(:lon, :lat)), :radius)")
 
-        if (Environment.current == Environment.DEVELOPMENT || !latlng || !radius) {
+        if (Environment.current == Environment.DEVELOPMENT) {
             return Building.list()
         }
 
         query.addEntity(com.estima.Building)
-        query.setInteger("radius", radius)
-        query.setDouble("lon", (double) latlng?.getAt(1))
-        query.setDouble("lat", (double) latlng?.getAt(0))
+        query.setInteger("radius", locationCriteria.radius)
+        query.setDouble("lon", (double) locationCriteria.latLng.lng)
+        query.setDouble("lat", (double) locationCriteria.latLng.lat)
         return query.list()
     }
 
