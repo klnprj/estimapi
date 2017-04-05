@@ -149,6 +149,7 @@ environments {
 }
 
 // Added by the Spring Security Core plugin:
+//grails.plugin.springsecurity.active = false
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.estima.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.estima.auth.UserRole'
 grails.plugin.springsecurity.authority.className = 'com.estima.auth.Role'

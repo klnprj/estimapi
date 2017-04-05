@@ -36,6 +36,12 @@ class BuildingService {
                     }
                 }
             }
+
+            if (filter.lastUpdatedFrom) {
+                positions {
+                    ge('lastUpdated', filter.lastUpdatedFrom)
+                }
+            }
         })
 
         return result

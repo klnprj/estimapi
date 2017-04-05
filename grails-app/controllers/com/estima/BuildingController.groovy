@@ -2,9 +2,9 @@ package com.estima
 
 import grails.plugin.springsecurity.annotation.Secured
 import grails.rest.RestfulController
-import org.hibernate.Criteria
-import org.hibernate.sql.JoinType
 import org.springframework.http.HttpStatus
+
+import java.time.Instant
 
 @Secured(["isAuthenticated()"])
 class BuildingController extends RestfulController<Building> {
@@ -24,11 +24,12 @@ class BuildingController extends RestfulController<Building> {
         return item
     }
 
-    def index() {
-        BuildingSearchCriteria criteria = new BuildingSearchCriteria(params.sort, params.order, params.int('max'),
-                params.int('offset'))
-        BuildingSearchFilter filter = new BuildingSearchFilter(params.q, params.list('authorId').collect{it.toLong()},
-                params.list('status'))
+    def index(String sort, String order, Integer max, Integer offset, String q) {
+        List<Long> authorIds = params.list('authorId').collect{it.toLong()}
+        List<String> statuses = params.list('status')
+        Instant lastUpdatedFrom = params['from.lastUpdated'] ? Instant.parse(params.get('from.lastUpdated')) : null
+        BuildingSearchCriteria criteria = new BuildingSearchCriteria(sort, order, max, offset)
+        BuildingSearchFilter filter = new BuildingSearchFilter(q, authorIds, statuses, lastUpdatedFrom)
 
         def buildingList = buildingService.listBuildings(criteria, filter)
 
