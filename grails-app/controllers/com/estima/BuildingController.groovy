@@ -36,11 +36,13 @@ class BuildingController extends RestfulController<Building> {
         render view: '/building/index', model: [buildingList: buildingList, totalCount: buildingList.totalCount]
     }
 
-    def locations() {
+    def locations(String q, Integer radius) {
+        List<Long> authorIds = params.list('authorId').collect{it.toLong()}
+        List<String> statuses = params.list('status')
+        Instant lastUpdatedFrom = params['from.lastUpdated'] ? Instant.parse(params.get('from.lastUpdated')) : null
         LatLng latLng = new LatLng(params.latlng?.collect{ Double.parseDouble(it)})
-        BuildingLocationCriteria locationCriteria = new BuildingLocationCriteria(latLng, params.int('radius'))
-        BuildingSearchFilter filter = new BuildingSearchFilter(q: params.q,
-                authorsIds: params.list('authorId').collect{it.toLong()}, statuses: params.list('status'))
+        BuildingLocationCriteria locationCriteria = new BuildingLocationCriteria(latLng, radius)
+        BuildingSearchFilter filter = new BuildingSearchFilter(q, authorIds, statuses, lastUpdatedFrom)
 
         def buildingList = []
 
