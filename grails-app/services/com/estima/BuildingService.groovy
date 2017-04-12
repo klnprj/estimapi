@@ -44,7 +44,7 @@ class BuildingService {
             }
         })
 
-        return new PagedList(result)
+        return new PagedList(result, result.totalCount)
     }
 
     List listByLocation(BuildingLocationCriteria locationCriteria) {
@@ -108,10 +108,12 @@ class BuildingService {
     }
 
     private static class PagedList extends AbstractList {
-        private List resultList;
+        private List resultList
+        private int totalCount
 
-        PagedList(List resultList) {
+        PagedList(List resultList, int totalCount) {
             this.resultList = resultList == null ? new ArrayList() : resultList.unique({it.id})
+            this.totalCount = totalCount
         }
 
         @Override
@@ -150,7 +152,7 @@ class BuildingService {
         }
 
         public int getTotalCount() {
-            return resultList.size();
+            return totalCount;
         }
 
     }
