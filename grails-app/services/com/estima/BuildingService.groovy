@@ -44,7 +44,7 @@ class BuildingService {
             }
         })
 
-        return result
+        return new PagedList(result)
     }
 
     List listByLocation(BuildingLocationCriteria locationCriteria) {
@@ -105,5 +105,53 @@ class BuildingService {
         }
 
         return building
+    }
+
+    private static class PagedList extends AbstractList {
+        private List resultList;
+
+        PagedList(List resultList) {
+            this.resultList = resultList == null ? new ArrayList() : resultList.unique({it.id})
+        }
+
+        @Override
+        public Object get(int i) {
+            return resultList.get(i);
+        }
+
+        @Override
+        public Object set(int i, Object o) {
+            return resultList.set(i, o);
+        }
+
+        @Override
+        public Object remove(int i) {
+            return resultList.remove(i);
+        }
+
+        @Override
+        public void add(int i, Object o) {
+            resultList.add(i, o);
+        }
+
+        @Override
+        public int size() {
+            return resultList.size();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            return resultList.equals(o);
+        }
+
+        @Override
+        public int hashCode() {
+            return resultList.hashCode();
+        }
+
+        public int getTotalCount() {
+            return resultList.size();
+        }
+
     }
 }
