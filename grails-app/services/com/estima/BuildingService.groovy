@@ -13,7 +13,7 @@ class BuildingService {
 
     List listBuildings(BuildingSearchCriteria criteria, BuildingSearchFilter filter) {
 
-        List result = Building.createCriteria().list([sort: criteria.sort, order: criteria.order, max: criteria.max, offset: criteria.offset], {
+        List result = Building.createCriteria().list([sort: criteria.sort, order: criteria.order, max: criteria.max, offset: criteria.offset, fetch: [positions: 'subselect']], {
             if (filter.q != null) {
                 or {
                     ilike('name', "%${filter.q}%")
@@ -38,13 +38,11 @@ class BuildingService {
             }
 
             if (filter.lastUpdatedFrom) {
-                positions {
-                    ge('lastUpdated', filter.lastUpdatedFrom)
-                }
+                ge('latestPositionDateUpdated', filter.lastUpdatedFrom)
             }
         })
 
-        return new PagedList(result, result.totalCount)
+        return result
     }
 
     List listByLocation(BuildingLocationCriteria locationCriteria) {
@@ -105,55 +103,5 @@ class BuildingService {
         }
 
         return building
-    }
-
-    private static class PagedList extends AbstractList {
-        private List resultList
-        private int totalCount
-
-        PagedList(List resultList, int totalCount) {
-            this.resultList = resultList == null ? new ArrayList() : resultList.unique({it.id})
-            this.totalCount = totalCount
-        }
-
-        @Override
-        public Object get(int i) {
-            return resultList.get(i);
-        }
-
-        @Override
-        public Object set(int i, Object o) {
-            return resultList.set(i, o);
-        }
-
-        @Override
-        public Object remove(int i) {
-            return resultList.remove(i);
-        }
-
-        @Override
-        public void add(int i, Object o) {
-            resultList.add(i, o);
-        }
-
-        @Override
-        public int size() {
-            return resultList.size();
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            return resultList.equals(o);
-        }
-
-        @Override
-        public int hashCode() {
-            return resultList.hashCode();
-        }
-
-        public int getTotalCount() {
-            return totalCount;
-        }
-
     }
 }

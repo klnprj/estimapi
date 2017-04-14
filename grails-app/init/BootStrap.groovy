@@ -1,5 +1,7 @@
+import com.estima.Building
 import com.estima.Dealer
 import com.estima.DictionaryItem
+import com.estima.Position
 import com.estima.auth.Role
 import com.estima.User
 import com.estima.Dictionary
@@ -65,8 +67,16 @@ class BootStrap {
                 new DictionaryItem(dictionary: Dictionary.findByKey('customers'), title: 'Заказчик 2').save(failOnError: true, flush: true)
                 new DictionaryItem(dictionary: Dictionary.findByKey('designers'), title: 'Проектировщик 1').save(failOnError: true, flush: true)
                 new DictionaryItem(dictionary: Dictionary.findByKey('designers'), title: 'Проектировщик 2').save(failOnError: true, flush: true)
-                new DictionaryItem(dictionary: Dictionary.findByKey('dealers'), title: 'Дилер 1').save(failOnError: true, flush: true)
-                new DictionaryItem(dictionary: Dictionary.findByKey('dealers'), title: 'Дилер 2').save(failOnError: true, flush: true)
+                DictionaryItem d1 = new DictionaryItem(dictionary: Dictionary.findByKey('dealers'), title: 'Дилер 1').save(failOnError: true, flush: true)
+                DictionaryItem d2 = new DictionaryItem(dictionary: Dictionary.findByKey('dealers'), title: 'Дилер 2').save(failOnError: true, flush: true)
+
+                Building b1 = new Building(author: User.load(1), name: "test", address: "Москва, Верейская, 39", location: "POINT(37.434181 55.711321)", status: "ACTIVE").save(failOnError: true, flush: true)
+                Building b2 = new Building(author: User.load(1), name: "test2", address: "Москва, Панфёрова, 16 к1", location: "POINT(37.544963 55.681163)", status: "ACTIVE").save(failOnError: true, flush: true)
+
+                b1.addToPositions(new Position(dealer: d1, contactName: "qwer", type: "интерьеры", spec: "qwer", dealerPrice: 4, grossPrice: 4, quantity: 4))
+                b1.addToPositions(new Position(dealer: d2, contactName: "qwer", type: "интерьеры", spec: "qwer", dealerPrice: 4, grossPrice: 4, quantity: 4))
+                b2.addToPositions(new Position(dealer: d1, contactName: "qwer", type: "интерьеры", spec: "qwer", dealerPrice: 4, grossPrice: 4, quantity: 4))
+                b2.addToPositions(new Position(dealer: d2, contactName: "qwer", type: "интерьеры", spec: "qwer", dealerPrice: 4, grossPrice: 4, quantity: 4))
             }
         }
     }
