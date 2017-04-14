@@ -49,6 +49,10 @@ if(Environment.current == Environment.DEVELOPMENT) {
     logger('grails.app', INFO)
 
     logger('com.estima', DEBUG)
+
+//    logger 'org.hibernate.SQL', DEBUG
+//    logger 'org.hibernate.type.descriptor.sql.BasicBinder', TRACE
+
 } else {
 
     // PRODUCTION settings

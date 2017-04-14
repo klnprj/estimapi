@@ -159,6 +159,7 @@ grails.plugin.springsecurity.authority.nameField = 'name'
 
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
         [pattern: '/',                  access: ['permitAll']],
+//        [pattern: '/dbconsole',         access: ['permitAll']],
         [pattern: '/error',             access: ['permitAll']],
         [pattern: '/index',             access: ['permitAll']],
         [pattern: '/index.gsp',         access: ['permitAll']],
@@ -173,6 +174,7 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [
+//        [pattern: '/dbconsole/**',      filters: 'none'],
         [pattern: '/assets/**',         filters: 'none'],
         [pattern: '/**/js/**',          filters: 'none'],
         [pattern: '/**/css/**',         filters: 'none'],
