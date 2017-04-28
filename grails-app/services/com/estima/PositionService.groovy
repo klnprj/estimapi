@@ -1,5 +1,7 @@
 package com.estima
 
+import com.estima.app.command.PositionCreateCommand
+import com.estima.app.command.PositionUpdateCommand
 import grails.transaction.Transactional
 import groovy.sql.Sql
 
@@ -22,12 +24,38 @@ class PositionService {
         return result
     }
 
-    Position create(Long buildingId, Long dealerId, String contactName, String type, String spec, Integer quantity,
-                    String grossPrice, Integer dealerPrice, String total, String status, String dateShipped) {
-        Position position = new Position(building: Building.load(buildingId), dealer: DictionaryItem.load(dealerId),
-                dateCreated: new Timestamp(new Date().time), contactName: contactName, type: type, spec: spec,
-                quantity: quantity, dealerPrice: dealerPrice,
-                grossPrice: grossPrice, total: total, status: status, dateShipped: null)
+    Position create(PositionCreateCommand cmd) {
+        Position position = new Position(building: Building.load(cmd.buildingId), dealer: DictionaryItem.load(cmd.dealerId),
+                dateCreated: new Timestamp(new Date().time), contactName: cmd.contactName, type: cmd.type, spec: cmd.spec,
+                quantity: cmd.quantity, dealerPrice: cmd.dealerPrice,
+                grossPrice: cmd.grossPrice, total: cmd.total, status: cmd.status, dateShipped: null)
+
+        position.save()
+
+        if (position.hasErrors()) {
+            transactionStatus.setRollbackOnly()
+            return position
+        }
+
+        return position
+    }
+
+    Position update(Long id, PositionUpdateCommand cmd) {
+        Position position = Position.get(id)
+
+        if (!position) {
+            throw new IllegalArgumentException("Position [$id] not found.")
+        }
+
+        position.contactName = cmd.contactName
+        position.type = cmd.type
+        position.spec = cmd.spec
+        position.quantity = cmd.quantity
+        position.dealerPrice = cmd.dealerPrice
+        position.grossPrice = cmd.grossPrice
+        position.total = cmd.total
+        position.status = cmd.status
+        position.dateShipped = cmd.dateShipped ? new Timestamp(cmd.dateShipped.time) : null
 
         position.save()
 

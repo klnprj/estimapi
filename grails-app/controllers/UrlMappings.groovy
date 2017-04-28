@@ -39,6 +39,7 @@ class UrlMappings {
             "/positions"(controller: 'position', action: 'index', method: 'GET')
             "/positions/$id"(controller: 'position', action: 'show', method: 'GET')
             "/positions/$id"(controller: 'position', action: 'delete', method: 'DELETE')
+            "/positions/$id"(controller: 'position', action: 'update', method: 'PUT')
 
             "/messages"(controller: 'message', action: 'save', method: 'POST')
             "/messages"(controller: 'message', action: 'index', method: 'GET')
