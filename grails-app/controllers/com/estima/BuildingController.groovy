@@ -26,10 +26,11 @@ class BuildingController extends RestfulController<Building> {
 
     def index(String sort, String order, Integer max, Integer offset, String q) {
         List<Long> authorIds = params.list('authorId').collect{it.toLong()}
+        List<Long> dealersIds = params.list('dealerId').collect{it.toLong()}
         List<String> statuses = params.list('status')
         Instant lastUpdatedFrom = params['from.lastUpdated'] ? Instant.parse(params.get('from.lastUpdated')) : null
         BuildingSearchCriteria criteria = new BuildingSearchCriteria(sort, order, max, offset)
-        BuildingSearchFilter filter = new BuildingSearchFilter(q, authorIds, statuses, lastUpdatedFrom)
+        BuildingSearchFilter filter = new BuildingSearchFilter(q, authorIds, statuses, lastUpdatedFrom, dealersIds)
 
         def buildingList = buildingService.listBuildings(criteria, filter)
 
@@ -38,11 +39,12 @@ class BuildingController extends RestfulController<Building> {
 
     def locations(String q, Integer radius) {
         List<Long> authorIds = params.list('authorId').collect{it.toLong()}
+        List<Long> dealersIds = params.list('dealerId').collect{it.toLong()}
         List<String> statuses = params.list('status')
         Instant lastUpdatedFrom = params['from.lastUpdated'] ? Instant.parse(params.get('from.lastUpdated')) : null
         LatLng latLng = new LatLng(params.latlng?.collect{ Double.parseDouble(it)})
         BuildingLocationCriteria locationCriteria = new BuildingLocationCriteria(latLng, radius)
-        BuildingSearchFilter filter = new BuildingSearchFilter(q, authorIds, statuses, lastUpdatedFrom)
+        BuildingSearchFilter filter = new BuildingSearchFilter(q, authorIds, statuses, lastUpdatedFrom, dealersIds)
 
         def buildingList = []
 

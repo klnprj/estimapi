@@ -40,6 +40,16 @@ class BuildingService {
             if (filter.lastUpdatedFrom) {
                 ge('latestPositionDateUpdated', filter.lastUpdatedFrom)
             }
+
+            if (filter.dealersIds) {
+                positions {
+                    or {
+                        filter.dealersIds.each{ id ->
+                            eq('dealer.id', id)
+                        }
+                    }
+                }
+            }
         })
 
         return result
