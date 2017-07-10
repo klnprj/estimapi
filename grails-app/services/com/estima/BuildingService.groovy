@@ -4,6 +4,7 @@ import grails.databinding.SimpleMapDataBindingSource
 import grails.transaction.Transactional
 import grails.util.Environment
 import groovy.sql.Sql
+import org.hibernate.criterion.CriteriaSpecification
 
 @Transactional
 class BuildingService {
@@ -42,6 +43,7 @@ class BuildingService {
             }
 
             if (filter.dealersIds) {
+                resultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
                 positions {
                     or {
                         filter.dealersIds.each{ id ->
